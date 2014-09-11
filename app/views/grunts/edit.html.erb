@@ -1,0 +1,26 @@
+<h1>Edit Grunt Profile for <%= @current_user.name %></h1>
+<% if @current_user.grunts.first.is_leader %>
+  <%= form_for @grunt do |f| %>
+    <%= f.label :start_date %>
+    <%= f.date_field :start_date %><br>
+    <%= f.label :salary %>
+    <%= f.number_field :salary %>
+    <% if @grunt.salary == 0 %>
+      or 
+      <%= f.label :hourly_rate %>
+      <%= f.number_field :hourly_rate %>
+    <% end %><br>
+    <%= f.label :cash_compensation %>
+    <%= f.number_field :cash_compensation %><br>
+    <%= f.label :commission_rate %>
+    <%= f.number_field :commission_rate %><br>
+    <%= f.label :title %>
+    <%= f.text_field :title %><br>
+    <%= f.label :is_leader %>
+    <%= f.check_box :is_leader %><br>
+    <%= f.submit %>
+  <% end %>
+<% end %>
+
+
+
