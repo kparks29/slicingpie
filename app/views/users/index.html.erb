@@ -11,6 +11,8 @@
   <% else %>
     <%= link_to "Create a Company", new_company_path %>
   <% end %>
+  <%= link_to "Update Profile", edit_user_path(@current_user) %>
+  <%= link_to "Sign Out", logout_path %>
 <% else %>
   <h1>Welcome to Slicing Pie App</h1>
   <%= link_to "Get Started", new_user_path %>

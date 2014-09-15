@@ -5,18 +5,24 @@ Rails.application.routes.draw do
   get '/' => 'users#index'
   get 'login' => 'users#new', as: :new_user
   post 'users' => 'users#create'
+  get 'users/:id/edit' => 'users#edit', as: :edit_user
+  get 'users/:id' => 'users#show', as: :user
+  patch 'users/:id' => 'users#update'
 
   get 'companies' => 'companies#index'
   get 'company/new' => 'companies#new', as: :new_company
   post 'companies' => 'companies#create'
   get 'company/:id' => 'companies#show', as: :company
 
+
+  get 'grunts' => 'grunts#index'
+  post 'grunts' => 'grunts#create'
   get 'grunt/:id' => 'grunts#show', as: :grunt
   get 'grunt/:id/edit' => 'grunts#edit', as: :edit_grunt
   patch 'grunt/:id' => 'grunts#update'
 
-  resources :auths, only:[:create,:destroy]
-
+  resources :auths, only:[:create]
+  get 'logout' => 'auths#destroy', as: :logout
 
 
   # You can have the root of your site routed with "root"

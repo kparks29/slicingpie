@@ -2,7 +2,12 @@
 <ul>
   <% @company.grunts.each do |grunt| %>
 
-    <li><%= grunt.name %></li>
+    <li><% if @current_user.grunts.first.is_leader %><%= link_to grunt.user.name, grunt %><% elsif @current_user == grunt.user %><%= link_to grunt.user.name, grunt %><% else %><%= grunt.user.name %><% end %></li>
 
   <% end %>
 </ul>
+
+<%= link_to "Home", root_path %>
+<% if @current_user.grunts.first.is_leader %>
+  <%= link_to "Invite Grunt", {controller: 'grunts', action: 'create', id: @company.id}, {:method => :post } %>
+<% end %>

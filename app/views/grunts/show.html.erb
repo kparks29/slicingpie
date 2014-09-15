@@ -1,10 +1,12 @@
 <h1>Your Grunt Profile</h1>
 <ul>
-  <%= @grunt %>
-    <li><%#= "#{key} = #{value}" %></li>
-  <%# end %>
+  <% @grunt.attributes.each do |key, value| %>
+    <li><%= "#{key} = #{value}" %></li>
+  <% end %>
 </ul>
 
 <% if @current_user.grunts.first.is_leader %>
   <%= link_to "Edit Grunt Profile", edit_grunt_path(@grunt) %>
 <% end %>
+
+<%= link_to "Company Profile", {controller: 'companies', action: 'show', id: @grunt.company.id} %>

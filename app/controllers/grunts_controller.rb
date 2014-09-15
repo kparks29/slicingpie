@@ -1,5 +1,26 @@
 class GruntsController < ApplicationController
 
+  def create
+    if @current_user
+      @grunt = Grunt.new()
+      
+      if @grunt.save()
+        @user = User.new()
+        @user.grunts.push(@grunt)
+        @company = Company.find_by_id(params[:id].to_i)
+        @company.grunts.push(@grunt)
+        @user.companies.push(@company)
+        @user.save
+        @company.save
+        redirect_to controller: 'users', action: 'edit', id: @grunt.user, grunt_id: @grunt.id
+      else
+        redirect_to root_path
+      end
+    else
+      redirect_to root_path
+    end
+  end
+
   def show
     if @current_user
       @grunt = Grunt.find_by_id(params[:id])
@@ -30,7 +51,7 @@ class GruntsController < ApplicationController
       grunt_params[:ghrr] = ((grunt_params[:salary].to_f - grunt_params[:cash_compensation].to_f) / 2000) * 2
       #grunt_params[:equity] = 
       #grunt_params[:total_contributions] = 
-      binding.pry
+      
       if @grunt.update(grunt_params)
         flash[:success] = "Your Grunt Profile was updated Successfully!"
         redirect_to @grunt

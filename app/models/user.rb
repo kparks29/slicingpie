@@ -6,8 +6,7 @@ class User < ActiveRecord::Base
   has_many :companies, through: :company_users
   has_many :grunts
 
-  validates :name, presence: true
-  validates :email, presence: true, uniqueness: true
+  
 
 
   def authenticated?(pwd)
